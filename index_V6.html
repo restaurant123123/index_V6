@@ -1,0 +1,4052 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<title>GLOBAL MACRO TERMINAL</title>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:
+        radial-gradient(circle at 10% 5%,rgba(37,99,235,.12),transparent 30%),
+        radial-gradient(circle at 90% 15%,rgba(14,165,233,.08),transparent 28%),
+        #050811;
+    color:#e5e7eb;
+    font-family:"Inter","Noto Sans SC",sans-serif;
+}
+
+::selection{
+    background:rgba(56,189,248,.35);
+}
+
+.glass{
+    background:rgba(10,16,29,.80);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(148,163,184,.12);
+}
+
+.terminal-border{
+    border:1px solid rgba(71,85,105,.45);
+    box-shadow:
+        0 0 0 1px rgba(15,23,42,.8),
+        0 12px 40px rgba(0,0,0,.22);
+}
+
+.grid-bg{
+    background-image:
+        linear-gradient(rgba(148,163,184,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(148,163,184,.035) 1px,transparent 1px);
+    background-size:32px 32px;
+}
+
+.number{
+    font-variant-numeric:tabular-nums;
+}
+
+.metric-card{
+    transition:.2s ease;
+}
+
+.metric-card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(56,189,248,.30);
+}
+
+.pulse-dot{
+    animation:pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot{
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+    }
+    50%{
+        opacity:.4;
+        transform:scale(.75);
+    }
+}
+
+.fade-in{
+    animation:fadeIn .4s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.glow-gold{
+    box-shadow:
+        0 0 25px rgba(250,204,21,.08),
+        inset 0 0 25px rgba(250,204,21,.025);
+}
+
+.glow-blue{
+    box-shadow:
+        0 0 25px rgba(59,130,246,.08),
+        inset 0 0 25px rgba(59,130,246,.025);
+}
+
+.glow-red{
+    box-shadow:
+        0 0 25px rgba(239,68,68,.08),
+        inset 0 0 25px rgba(239,68,68,.025);
+}
+
+.glow-green{
+    box-shadow:
+        0 0 25px rgba(34,197,94,.08),
+        inset 0 0 25px rgba(34,197,94,.025);
+}
+
+.risk-bar{
+    height:5px;
+    border-radius:999px;
+    background:#1e293b;
+    overflow:hidden;
+}
+
+.risk-fill{
+    height:100%;
+    border-radius:inherit;
+    transition:width .6s ease;
+}
+
+.loader{
+    width:18px;
+    height:18px;
+    border:2px solid rgba(255,255,255,.15);
+    border-top-color:#38bdf8;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.gold-loader{
+    width:20px;
+    height:20px;
+    border:2px solid rgba(250,204,21,.15);
+    border-top-color:#facc15;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+}
+
+.live-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 12px rgba(34,197,94,.7);
+}
+
+.stale-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#f59e0b;
+}
+
+.ticker{
+    animation:ticker 25s linear infinite;
+}
+
+@keyframes ticker{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(-50%);
+    }
+}
+
+textarea{
+    resize:vertical;
+}
+
+.market-v2-card{
+    background:linear-gradient(
+        145deg,
+        rgba(10,16,30,.96),
+        rgba(5,9,18,.96)
+    );
+    border:1px solid rgba(56,189,248,.10);
+    box-shadow:
+        0 0 24px rgba(15,23,42,.45),
+        inset 0 0 24px rgba(56,189,248,.02);
+}
+
+.market-v2-card:hover{
+    border-color:rgba(56,189,248,.22);
+    transform:translateY(-1px);
+    transition:.2s ease;
+}
+
+.v2-value{
+    font-variant-numeric:tabular-nums;
+    letter-spacing:-.03em;
+}
+
+.v2-up{
+    color:#4ade80!important;
+}
+
+.v2-down{
+    color:#f87171!important;
+}
+
+.v2-flat{
+    color:#94a3b8!important;
+}
+
+.v2-status{
+    font-size:9px;
+    letter-spacing:.14em;
+}
+
+.v2-pill{
+    padding:.22rem .45rem;
+    border-radius:.45rem;
+    background:#0b1220;
+    border:1px solid #1e293b;
+    font-size:9px;
+    color:#64748b;
+}
+
+#goldChart{
+    width:100%;
+    height:180px;
+    display:block;
+}
+
+#btcChart{
+    width:100%;
+    height:80px;
+    display:block;
+}
+
+</style>
+</head>
+<body class="min-h-screen">
+<!-- =====================================================
+     HEADER
+===================================================== -->
+<header class="sticky top-0 z-50 border-b border-slate-800/80 bg-[#050811]/90 backdrop-blur-xl">
+<div class="max-w-[1600px] mx-auto px-4 sm:px-6">
+<div class="h-16 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-400/20 flex items-center justify-center">
+<span class="text-sky-400 text-lg">◈</span>
+</div>
+<div>
+<div class="font-bold tracking-wider text-white">
+GLOBAL MACRO
+</div>
+<div class="text-[9px] tracking-[.28em] text-slate-500">
+INTELLIGENCE TERMINAL
+</div>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6 text-xs">
+<div class="flex items-center gap-2 text-slate-400">
+<span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span>
+
+MARKET STATUS
+
+<span class="text-green-400">
+ONLINE
+</span>
+</div>
+<div class="h-4 w-px bg-slate-800"></div>
+<div class="text-slate-500">
+
+DATA:
+
+<span class="text-sky-400">
+V2 LIVE + DEMO
+</span>
+</div>
+<div class="h-4 w-px bg-slate-800"></div>
+<div class="font-mono text-slate-300" id="clock">
+--:--:--
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- =====================================================
+     TICKER
+===================================================== -->
+<div class="border-b border-slate-800 bg-[#070c16] overflow-hidden">
+<div class="ticker whitespace-nowrap py-2 text-[11px] font-mono text-slate-500">
+<span class="mx-8">
+S&amp;P 500
+<b class="text-green-400">+0.62%</b>
+</span>
+<span class="mx-8">
+NASDAQ
+<b class="text-green-400">+0.81%</b>
+</span>
+<span class="mx-8">
+DXY
+<b class="text-green-400">+0.17%</b>
+</span>
+<span class="mx-8">
+US 10Y
+<b class="text-red-400">+4.2bp</b>
+</span>
+<span class="mx-8">
+XAU/USD
+<b class="text-yellow-400" id="tickerGold">
+Loading...
+</b>
+</span>
+<span class="mx-8">
+WTI
+<b class="text-red-400">-0.42%</b>
+</span>
+<span class="mx-8">
+NIKKEI
+<b class="text-red-400">-0.34%</b>
+</span>
+<span class="mx-8">
+SHANGHAI
+<b class="text-green-400">+0.21%</b>
+</span>
+<span class="mx-8">
+S&amp;P 500
+<b class="text-green-400">+0.62%</b>
+</span>
+<span class="mx-8">
+NASDAQ
+<b class="text-green-400">+0.81%</b>
+</span>
+</div>
+</div>
+<!-- =====================================================
+     MAIN
+===================================================== -->
+<main class="max-w-[1600px] mx-auto px-4 sm:px-6 py-6"><section class="mb-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="text-[10px] font-mono tracking-[.3em] text-sky-400">MALAYSIA INVESTMENT TERMINAL</span>
+<span class="px-2 py-0.5 rounded bg-sky-400/10 border border-sky-400/20 text-[9px] text-sky-300">
+LIVE
+</span>
+</div>
+<h1 class="text-2xl sm:text-3xl font-bold text-white">马来西亚投资与全球宏观终端</h1>
+<p class="mt-2 text-sm text-slate-500">Malaysia Investment · Property · REIT · Macro · Global Markets</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300 hover:border-sky-500/40 transition" onclick="refreshAll()">
+
+↻ 全部刷新
+
+</button>
+<button class="px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300 hover:border-red-500/40 transition" onclick="clearAnalysis()">
+
+清空分析
+
+</button>
+</div>
+</div>
+</section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden glow-blue">
+<div class="px-5 py-4 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div><div class="text-[10px] tracking-[.25em] text-yellow-400 font-mono">MALAYSIA INVESTMENT COMMAND CENTER · V3</div><h2 class="mt-1 text-sm font-semibold text-white">🇲🇾 马来西亚投资总览</h2><div class="text-[11px] text-slate-500 mt-1">先看马来西亚，再看全球环境</div></div>
+<div class="flex items-center gap-2"><span class="v2-pill">MALAYSIA FIRST</span><span class="v2-status text-green-400">LIVE / OFFICIAL</span></div>
+</div>
+<div class="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">KLCI</div><div class="text-xs text-slate-500 mt-1">富时隆综指</div></div><span class="text-sky-400">◈</span></div><div class="mt-5 text-3xl font-bold text-white v2-value" id="myKlci">--</div><div class="mt-2 text-xs v2-flat" id="myKlciChg">--</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">^KLSE · MARKET FEED</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">USD / MYR</div><div class="text-xs text-slate-500 mt-1">令吉汇率</div></div><span class="text-sky-400">RM</span></div><div class="mt-5 text-3xl font-bold text-white v2-value" id="v2Usdm">--</div><div class="mt-2 text-xs v2-flat" id="v2UsdmChg">--</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">MYR=X · MARKET FEED</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">OPR</div><div class="text-xs text-slate-500 mt-1">隔夜政策利率</div></div><span class="text-yellow-400">%</span></div><div class="mt-5 text-3xl font-bold text-white v2-value">2.75%</div><div class="mt-2 text-xs text-green-400">政策维持不变</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">BNM · 03 SEP 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">MGS 10Y</div><div class="text-xs text-slate-500 mt-1">马来西亚10年国债</div></div><span class="text-blue-400">YLD</span></div><div class="mt-5 text-3xl font-bold text-white v2-value">4.00%</div><div class="mt-2 text-xs text-slate-400">官方市场数据</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">BNM FMIP · 05 OCT 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">CPI</div><div class="text-xs text-slate-500 mt-1">Headline Inflation</div></div><span class="text-green-400">%</span></div><div class="mt-5 text-3xl font-bold text-white v2-value">1.8%</div><div class="mt-2 text-xs text-green-400">低通胀环境</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">BNM · JUL 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">GDP GROWTH</div><div class="text-xs text-slate-500 mt-1">经济增长</div></div><span class="text-green-400">%</span></div><div class="mt-5 text-3xl font-bold text-white v2-value">6.0%</div><div class="mt-2 text-xs text-green-400">Q2 2026</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">BNM · Q2 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">MANUFACTURING PMI</div><div class="text-xs text-slate-500 mt-1">大马制造业</div></div><span class="text-green-400">◈</span></div><div class="mt-5 text-3xl font-bold text-white v2-value">49.9</div><div class="mt-2 text-xs text-red-400">↓ 低于 50 = 收缩</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">SEP 2026 · S&amp;P GLOBAL</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">FOREIGN INVESTMENT</div><div class="text-xs text-slate-500 mt-1">1H 2026 Approved</div></div><span class="text-yellow-400">RM</span></div><div class="mt-5 text-3xl font-bold text-white v2-value">126.9B</div><div class="mt-2 text-xs text-sky-400">58.1% of total approvals</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">MIDA · JAN–JUN 2026</div></div>
+</div>
+<div class="px-5 pb-5 text-[10px] text-slate-600">官方宏观快照：OPR、CPI、GDP 与 MGS 10Y 来自 BNM；投资数据来自 MIDA。静态官方指标按发布日期更新，市场行情继续自动刷新。</div>
+</div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden glow-gold">
+<div class="px-5 py-4 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div><div class="text-[10px] tracking-[.25em] text-yellow-400 font-mono">PROPERTY &amp; REIT · MALAYSIA</div><h2 class="mt-1 text-sm font-semibold text-white">🏢 房产与 REIT 雷达</h2><div class="text-[11px] text-slate-500 mt-1">KL · Selangor · Johor</div></div><div class="v2-pill">1H 2026 INVESTMENT SNAPSHOT</div></div>
+<div class="p-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">KUALA LUMPUR</div><div class="text-xs text-slate-500 mt-1">W.P. Kuala Lumpur</div></div><span class="text-sky-400">KL</span></div><div class="mt-5 text-3xl font-bold text-white">RM26.6B</div><div class="mt-2 text-xs text-sky-400">Approved investment</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">MIDA · 1H 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">SELANGOR</div><div class="text-xs text-slate-500 mt-1">工业 · 数字 · 城市增长</div></div><span class="text-green-400">SGR</span></div><div class="mt-5 text-3xl font-bold text-white">RM70.0B</div><div class="mt-2 text-xs text-green-400">Top investment destination</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">MIDA · 1H 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">JOHOR</div><div class="text-xs text-slate-500 mt-1">JS-SEZ · RTS · 工业走廊</div></div><span class="text-yellow-400">JHR</span></div><div class="mt-5 text-3xl font-bold text-white">RM59.4B</div><div class="mt-2 text-xs text-yellow-400">Major investment destination</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">MIDA · 1H 2026</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><div><div class="text-[10px] tracking-widest text-slate-500">SUNWAY REIT</div><div class="text-xs text-slate-500 mt-1">商业地产产托</div></div><span class="text-yellow-400">◇</span></div><div class="mt-5 text-3xl font-bold text-white v2-value" id="mySunway">--</div><div class="mt-2 text-xs v2-flat" id="mySunwayChg">--</div><div class="mt-4 pt-3 border-t border-slate-800 text-[9px] text-slate-600">5176.KL · MARKET FEED</div></div>
+</div>
+<div class="px-5 pb-5 text-[10px] text-slate-600">这里的 KL / Selangor / Johor 数字是 MIDA 1H 2026 全州批准投资，不等同于纯房地产交易额；MIDA 同期列示 Real Estate 批准投资 RM33.5B。Sunway REIT 为市场报价源数据。</div>
+</div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800"><div class="text-[10px] tracking-[.25em] text-sky-400 font-mono">MALAYSIA SECTOR RADAR · V3</div><h2 class="mt-1 text-sm font-semibold text-white">📊 马来西亚产业与投资板块</h2><div class="text-[11px] text-slate-500 mt-1">用批准投资规模观察资金正在流向哪里</div></div>
+<div class="p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">DIGITAL / DATA CENTRE</span><span class="text-green-400">STRONG</span></div><div class="mt-5 text-3xl font-bold text-white">RM95.8B</div><div class="mt-2 text-xs text-slate-500">Data centre + cloud approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">REAL ESTATE</span><span class="text-yellow-400">WATCH</span></div><div class="mt-5 text-3xl font-bold text-white">RM33.5B</div><div class="mt-2 text-xs text-slate-500">Approved services investment</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">ELECTRICAL &amp; ELECTRONICS</span><span class="text-green-400">STRONG</span></div><div class="mt-5 text-3xl font-bold text-white">RM16.6B</div><div class="mt-2 text-xs text-slate-500">Manufacturing approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">MACHINERY &amp; EQUIPMENT</span><span class="text-sky-400">WATCH</span></div><div class="mt-5 text-3xl font-bold text-white">RM7.5B</div><div class="mt-2 text-xs text-slate-500">Manufacturing approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">UTILITIES</span><span class="text-sky-400">TRACK</span></div><div class="mt-5 text-3xl font-bold text-white">RM3.0B</div><div class="mt-2 text-xs text-slate-500">Services approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">TRANSPORT SERVICES</span><span class="text-sky-400">TRACK</span></div><div class="mt-5 text-3xl font-bold text-white">RM2.9B</div><div class="mt-2 text-xs text-slate-500">Services approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">ENERGY / PRIMARY</span><span class="text-yellow-400">WATCH</span></div><div class="mt-5 text-3xl font-bold text-white">RM17.6B</div><div class="mt-2 text-xs text-slate-500">Primary sector approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-xs text-slate-300">MANUFACTURING</span><span class="text-green-400">CORE</span></div><div class="mt-5 text-3xl font-bold text-white">RM51.3B</div><div class="mt-2 text-xs text-slate-500">Total manufacturing approvals</div></div>
+</div>
+<div class="px-5 pb-5 text-[10px] text-slate-600">数据口径：MIDA 1H 2026 approved investments。这里的 STRONG / WATCH / TRACK 是终端的展示标签，不是买卖建议。</div>
+</div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800"><div class="text-[10px] tracking-[.25em] text-yellow-400 font-mono">MALAYSIA INVESTMENT FLOW · V3</div><h2 class="mt-1 text-sm font-semibold text-white">💰 资金与投资流向</h2><div class="text-[11px] text-slate-500 mt-1">从价格进一步看资本正在流向哪里</div></div>
+<div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="market-v2-card rounded-xl p-5"><div class="text-[10px] tracking-widest text-slate-500">FOREIGN INVESTMENT</div><div class="mt-5 text-3xl font-bold text-white">RM126.9B</div><div class="mt-2 text-xs text-green-400">58.1% of 1H 2026 approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="text-[10px] tracking-widest text-slate-500">DOMESTIC INVESTMENT</div><div class="mt-5 text-3xl font-bold text-white">RM91.6B</div><div class="mt-2 text-xs text-sky-400">41.9% of 1H 2026 approvals</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="text-[10px] tracking-widest text-slate-500">TOTAL APPROVED</div><div class="mt-5 text-3xl font-bold text-white">RM218.5B</div><div class="mt-2 text-xs text-yellow-400">+11.7% YoY · 2,746 projects</div></div>
+</div>
+<div class="px-5 pb-5 text-[10px] text-slate-600">MIDA 1H 2026：FI RM126.9B、DI RM91.6B、总批准投资 RM218.5B。这里是投资批准流，不是每日交易资金流。</div>
+</div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden glow-blue">
+<div class="px-5 py-4 border-b border-slate-800"><div class="text-[10px] tracking-[.25em] text-sky-400 font-mono">MALAYSIA INVESTMENT THEMES · V3</div><h2 class="mt-1 text-sm font-semibold text-white">🔥 马来西亚投资主题</h2><div class="text-[11px] text-slate-500 mt-1">结构性主题，而不是短线买卖信号</div></div>
+<div class="p-5 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-sm font-semibold text-white">DATA CENTRE / AI</span><span class="text-green-400">CORE</span></div><div class="mt-3 text-xs leading-6 text-slate-400">数据中心与云计算在 1H 2026 获批投资 RM95.8B。</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-sm font-semibold text-white">JS-SEZ / JOHOR</span><span class="text-yellow-400">WATCH</span></div><div class="mt-3 text-xs leading-6 text-slate-400">Johor 1H 2026 获批投资 RM59.4B；MIDA 指出 JS-SEZ 与 RTS connectivity 是重要支撑因素。</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-sm font-semibold text-white">SEMICONDUCTOR / E&amp;E</span><span class="text-green-400">CORE</span></div><div class="mt-3 text-xs leading-6 text-slate-400">E&amp;E 1H 2026 制造业获批投资 RM16.6B，继续作为高价值制造主题。</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-sm font-semibold text-white">PROPERTY / URBAN GROWTH</span><span class="text-sky-400">TRACK</span></div><div class="mt-3 text-xs leading-6 text-slate-400">Real Estate 1H 2026 获批服务业投资 RM33.5B；KL 亦包含住宅、服务式公寓与 TOD 相关发展。</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-sm font-semibold text-white">CAPITAL MARKET</span><span class="text-green-400">STRUCTURAL</span></div><div class="mt-3 text-xs leading-6 text-slate-400">SC 的 Capital Market Masterplan 2026–2030 聚焦 vibrancy、inclusivity、sustainability、regional opportunities。</div></div>
+<div class="market-v2-card rounded-xl p-5"><div class="flex justify-between"><span class="text-sm font-semibold text-white">ENERGY TRANSITION</span><span class="text-yellow-400">WATCH</span></div><div class="mt-3 text-xs leading-6 text-slate-400">资本市场规划与国家能源转型方向共同推动可持续融资与长期基础设施投资。</div></div>
+</div>
+</div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div>
+<div class="text-[10px] tracking-[.25em] text-sky-400 font-mono">GLOBAL MACRO · V3</div>
+<h2 class="mt-1 text-sm font-semibold text-white">全球宏观市场</h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="v2-pill">
+CLOUDFLARE + BROWSER FEED
+</span>
+<span class="v2-status text-yellow-400" id="marketV2Status">
+CONNECTING
+</span>
+</div>
+</div>
+<div class="p-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-4">
+<!-- DXY -->
+<div class="market-v2-card rounded-xl p-4">
+<div class="flex justify-between">
+<span class="text-[10px] text-slate-500">
+DXY
+</span>
+<span class="text-sky-400">
+$
+</span>
+</div>
+<div class="v2-value mt-4 text-2xl font-bold text-white" id="v2Dxy">
+--
+</div>
+<div class="mt-2 text-xs v2-flat" id="v2DxyChg">
+--
+</div>
+<div class="text-[9px] text-slate-600 mt-2">
+US DOLLAR INDEX
+</div>
+</div>
+<!-- USD MYR -->
+<!-- SILVER -->
+<div class="market-v2-card rounded-xl p-4">
+<div class="flex justify-between">
+<span class="text-[10px] text-slate-500">
+XAG/USD
+</span>
+<span class="text-sky-400">
+$
+</span>
+</div>
+<div class="v2-value mt-4 text-2xl font-bold text-white" id="v2Silver">
+--
+</div>
+<div class="mt-2 text-xs v2-flat" id="v2SilverChg">
+--
+</div>
+<div class="text-[9px] text-slate-600 mt-2">
+SILVER SPOT
+</div>
+</div>
+<!-- WTI -->
+<div class="market-v2-card rounded-xl p-4">
+<div class="flex justify-between">
+<span class="text-[10px] text-slate-500">
+WTI
+</span>
+<span class="text-sky-400">
+$
+</span>
+</div>
+<div class="v2-value mt-4 text-2xl font-bold text-white" id="v2Wti">
+--
+</div>
+<div class="mt-2 text-xs v2-flat" id="v2WtiChg">
+--
+</div>
+<div class="text-[9px] text-slate-600 mt-2">
+CRUDE OIL
+</div>
+</div>
+<!-- BTC -->
+<div class="market-v2-card rounded-xl p-4">
+<div class="flex justify-between">
+<span class="text-[10px] text-slate-500">
+BTC/USD
+</span>
+<span class="text-sky-400">
+$
+</span>
+</div>
+<div class="v2-value mt-4 text-2xl font-bold text-white" id="v2Btc">
+--
+</div>
+<div class="mt-3 h-20" id="btcChart">
+</div>
+<div class="mt-2 text-xs v2-flat" id="v2BtcChg">
+--
+</div>
+<div class="text-[9px] text-slate-600 mt-2">
+BITCOIN · 24H HISTORY
+</div>
+</div>
+<!-- VIX -->
+<div class="market-v2-card rounded-xl p-4">
+<div class="flex justify-between">
+<span class="text-[10px] text-slate-500">
+VIX
+</span>
+<span class="text-sky-400">
+VOL
+</span>
+</div>
+<div class="v2-value mt-4 text-2xl font-bold text-white" id="v2Vix">
+--
+</div>
+<div class="mt-2 text-xs v2-flat" id="v2VixChg">
+--
+</div>
+<div class="text-[9px] text-slate-600 mt-2">
+VOLATILITY INDEX
+</div>
+</div>
+</div>
+</div>
+</section><section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-6">
+<!-- CPI -->
+<div class="metric-card glass terminal-border rounded-xl p-5 glow-blue">
+<div class="flex justify-between">
+<div>
+<div class="text-[10px] tracking-widest text-slate-500">
+GLOBAL CPI
+</div>
+<div class="text-xs text-slate-500 mt-1">
+全球通胀
+</div>
+</div>
+<div class="text-sky-400">
+◌
+</div>
+</div>
+<div class="mt-5 flex justify-between items-end">
+<div>
+<div class="number text-3xl font-bold text-white" id="cpi">
+3.1%
+</div>
+<div class="text-[10px] text-slate-600 mt-1">
+YoY · DEMO
+</div>
+</div>
+<div class="text-red-400 text-sm">
+▲ 0.2%
+</div>
+</div>
+<div class="mt-4 risk-bar">
+<div class="risk-fill bg-sky-400" style="width:62%"></div>
+</div>
+</div>
+<!-- RATE -->
+<div class="metric-card glass terminal-border rounded-xl p-5 glow-red">
+<div class="flex justify-between">
+<div>
+<div class="text-[10px] tracking-widest text-slate-500">US POLICY RATE</div>
+<div class="text-xs text-slate-500 mt-1">美国政策利率</div>
+</div>
+<div class="text-red-400">
+%
+</div>
+</div>
+<div class="mt-5 flex justify-between items-end">
+<div>
+<div class="number text-3xl font-bold text-white" id="rate">
+4.50%
+</div>
+<div class="text-[10px] text-slate-600 mt-1">REFERENCE · DEMO</div>
+</div>
+<div class="text-red-400 text-sm">
+▲ 0.25%
+</div>
+</div>
+<div class="mt-4 risk-bar">
+<div class="risk-fill bg-red-400" style="width:78%"></div>
+</div>
+</div>
+<!-- PMI -->
+<div class="metric-card glass terminal-border rounded-xl p-5 glow-green">
+<div class="flex justify-between">
+<div>
+<div class="text-[10px] tracking-widest text-slate-500">
+GLOBAL PMI
+</div>
+<div class="text-xs text-slate-500 mt-1">
+制造业
+</div>
+</div>
+<div class="text-green-400">
+◈
+</div>
+</div>
+<div class="mt-5 flex justify-between items-end">
+<div>
+<div class="number text-3xl font-bold text-white" id="pmi">
+51.8
+</div>
+<div class="text-[10px] text-slate-600 mt-1">
+50 = EXPANSION
+</div>
+</div>
+<div class="text-green-400 text-sm">
+▲ 0.6
+</div>
+</div>
+<div class="mt-4 risk-bar">
+<div class="risk-fill bg-green-400" style="width:68%"></div>
+</div>
+</div>
+<!-- US10Y -->
+<div class="metric-card glass terminal-border rounded-xl p-5 glow-blue">
+<div class="flex justify-between">
+<div>
+<div class="text-[10px] tracking-widest text-slate-500">
+US 10Y
+</div>
+<div class="text-xs text-slate-500 mt-1">
+美国10年期
+</div>
+</div>
+<div class="text-blue-400">
+◇
+</div>
+</div>
+<div class="mt-5 flex justify-between items-end">
+<div>
+<div class="number text-3xl font-bold text-white" id="yield10y">
+4.18%
+</div>
+<div class="text-[10px] text-slate-600 mt-1">
+TREASURY
+</div>
+</div>
+<div class="text-red-400 text-sm">
+▲ 4.2bp
+</div>
+</div>
+<div class="mt-4 risk-bar">
+<div class="risk-fill bg-blue-400" style="width:71%"></div>
+</div>
+</div>
+<!-- GOLD -->
+<div class="metric-card glass terminal-border rounded-xl p-5 glow-gold">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-2">
+<div class="text-[10px] tracking-widest text-yellow-400">
+XAU / USD
+</div>
+<span class="live-dot" id="goldStatusDot">
+</span>
+</div>
+<div class="text-xs text-slate-500 mt-1">
+实时黄金现货
+</div>
+</div>
+<div class="text-yellow-400 text-xl">
+◆
+</div>
+</div>
+<div class="mt-5">
+<div class="number text-3xl font-bold text-white" id="goldPrice">
+
+--
+
+</div>
+<div class="text-[10px] text-slate-500 mt-1">
+USD / TROY OZ
+</div>
+</div>
+<div class="mt-4 flex justify-between items-center">
+<div>
+<div class="text-[9px] text-slate-600">
+BID
+</div>
+<div class="number text-xs text-slate-300" id="goldBid">
+--
+</div>
+</div>
+<div>
+<div class="text-[9px] text-slate-600">
+ASK
+</div>
+<div class="number text-xs text-slate-300" id="goldAsk">
+--
+</div>
+</div>
+<div>
+<div class="text-[9px] text-slate-600">
+24K / GRAM
+</div>
+<div class="number text-xs text-yellow-400" id="goldGram">
+--
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-yellow-400/10 flex justify-between">
+<div class="text-[10px] text-green-400" id="goldState">
+
+● LIVE
+
+</div>
+<div class="text-[9px] text-slate-600" id="goldUpdated">
+
+--
+
+</div>
+</div>
+</div>
+</section><section class="glass terminal-border rounded-xl overflow-hidden mb-6 glow-gold">
+<div class="px-5 py-4 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-2">
+<span class="text-[10px] tracking-[.25em] text-yellow-400 font-mono">
+PRECIOUS METALS
+</span>
+<span class="px-2 py-0.5 rounded bg-green-400/10 border border-green-400/10 text-[9px] text-green-400">
+LIVE DATA
+</span>
+</div>
+<h2 class="mt-1 text-sm font-semibold text-white">
+实时黄金市场
+</h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-[10px] text-slate-600">
+AUTO REFRESH
+</div>
+<div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-yellow-400">
+120 SEC
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-yellow-400/10 border border-yellow-400/20 text-xs text-yellow-300 hover:bg-yellow-400/20 transition" onclick="fetchGoldPrice()">
+
+↻ 更新金价
+
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="md:col-span-2 rounded-xl bg-[#070b14] border border-yellow-400/10 p-5">
+<div class="text-[10px] text-slate-600 tracking-widest">
+XAU/USD SPOT
+</div>
+<div class="mt-3 flex items-end gap-3">
+<div class="number text-4xl sm:text-5xl font-bold text-white" id="goldMainPrice">
+--
+</div>
+<div class="text-sm text-yellow-400 mb-2">
+USD / OZ
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2">
+<span class="px-2 py-1 rounded bg-green-400/10 text-green-400 text-[10px]" id="goldLiveBadge">
+● LIVE
+</span>
+<span class="text-[10px] text-slate-600">
+Spot Gold
+</span>
+</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-5">
+<div class="text-[10px] text-slate-600">
+BID
+</div>
+<div class="number mt-3 text-2xl font-bold text-white" id="goldDetailBid">
+--
+</div>
+<div class="text-[10px] text-slate-600 mt-2">
+USD / OZ
+</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-5">
+<div class="text-[10px] text-slate-600">
+ASK
+</div>
+<div class="number mt-3 text-2xl font-bold text-white" id="goldDetailAsk">
+--
+</div>
+<div class="text-[10px] text-slate-600 mt-2">
+USD / OZ
+</div>
+</div>
+</div>
+<div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[10px] text-slate-600">
+24K GOLD
+</div>
+<div class="number mt-2 text-xl font-bold text-yellow-400" id="goldMYRGram">
+--
+</div>
+<div class="text-[10px] text-slate-600 mt-1">
+MYR / GRAM
+</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[10px] text-slate-600">
+22K GOLD
+</div>
+<div class="number mt-2 text-xl font-bold text-yellow-300" id="gold22Gram">
+--
+</div>
+<div class="text-[10px] text-slate-600 mt-1">
+MYR / GRAM
+</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[10px] text-slate-600">
+DATA SOURCE
+</div>
+<div class="mt-2 text-sm font-semibold text-white">
+XAUS / Gold API
+</div>
+<div class="text-[10px] text-slate-600 mt-1">
+Live XAU Spot API
+</div>
+</div>
+</div>
+<div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[9px] text-slate-600">24H CHANGE</div>
+<div class="mt-2 text-xl font-bold v2-flat" id="gold24Change">--</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[9px] text-slate-600">24H HIGH</div>
+<div class="mt-2 text-xl font-bold text-green-400" id="gold24High">--</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[9px] text-slate-600">24H LOW</div>
+<div class="mt-2 text-xl font-bold text-red-400" id="gold24Low">--</div>
+</div>
+<div class="rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="text-[9px] text-slate-600">QUOTE TYPE</div>
+<div class="mt-2 text-sm font-bold text-yellow-400">MID-MARKET</div>
+</div>
+</div>
+<div class="mt-4 rounded-xl bg-[#070b14] border border-slate-800 p-4">
+<div class="flex justify-between items-center">
+<div>
+<div class="text-[10px] text-slate-500 tracking-widest">
+XAU/USD INTRADAY
+</div>
+<div class="text-[9px] text-slate-600 mt-1">
+XAUS 2-MINUTE SERIES · 24H
+</div>
+</div>
+<span class="v2-status text-green-400" id="goldChartState">
+LIVE
+</span>
+</div>
+<canvas class="mt-3" id="goldChart"></canvas>
+</div>
+<div class="mt-4 text-[10px] text-slate-600">
+
+金价为国际 XAU/USD 现货参考价。马币克价根据实时金价及汇率换算，仅作为市场参考。XAUS 提供的是 indicative mid-market reference rate，不是可执行的交易 BID/ASK，因此没有真实 BID/ASK 时保持 --。
+
+</div>
+</div>
+</section><div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800">
+<div class="text-[10px] tracking-[.2em] text-slate-500 font-mono">
+GLOBAL MARKET MATRIX
+</div>
+<h2 class="mt-1 text-sm font-semibold text-white">全球市场参考矩阵</h2>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs">
+<thead class="bg-[#070b14] text-slate-600">
+<tr>
+<th class="px-5 py-3">
+ASSET
+</th>
+<th class="px-5 py-3">
+PRICE
+</th>
+<th class="px-5 py-3">
+CHANGE
+</th>
+<th class="px-5 py-3">
+SIGNAL
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800/70">
+<tr>
+<td class="px-5 py-4">
+S&amp;P 500
+</td>
+<td class="px-5 py-4 font-mono">
+6,812.45
+</td>
+<td class="px-5 py-4 text-green-400">
++0.62%
+</td>
+<td class="px-5 py-4 text-green-400">
+POSITIVE
+</td>
+</tr>
+<tr>
+<td class="px-5 py-4">
+US 10Y
+</td>
+<td class="px-5 py-4 font-mono">
+4.18%
+</td>
+<td class="px-5 py-4 text-red-400">
++4.2bp
+</td>
+<td class="px-5 py-4 text-red-400">
+YIELD UP
+</td>
+</tr>
+<tr>
+<td class="px-5 py-4">
+DXY
+</td>
+<td class="px-5 py-4 font-mono">
+102.42
+</td>
+<td class="px-5 py-4 text-green-400">
++0.17%
+</td>
+<td class="px-5 py-4 text-blue-400">
+FIRM
+</td>
+</tr>
+<tr>
+<td class="px-5 py-4">
+<div class="font-semibold text-yellow-400">
+XAU/USD
+</div>
+<div class="text-[9px] text-slate-600">
+LIVE GOLD
+</div>
+</td>
+<td class="px-5 py-4 font-mono text-yellow-400" id="tableGold">
+--
+</td>
+<td class="px-5 py-4 text-slate-500" id="tableGoldState">
+LIVE
+</td>
+<td class="px-5 py-4 text-yellow-400">
+SPOT
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div><section class="mb-6"><div class="glass terminal-border rounded-xl overflow-hidden"><div class="px-5 py-4 border-b border-slate-800"><div class="text-[10px] tracking-[.25em] text-red-400 font-mono">MACRO RISK RADAR · V3</div><h2 class="mt-1 text-sm font-semibold text-white">⚠️ 宏观风险监控</h2></div><div class="p-5" id="riskRadarMount"><div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800">
+<div class="text-[10px] tracking-[.2em] text-red-400 font-mono">
+MACRO RISK
+</div>
+<h2 class="mt-1 text-sm font-semibold text-white">
+宏观风险监控
+</h2>
+</div>
+<div class="p-5 space-y-5">
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400">
+Inflation
+</span>
+<span class="text-red-400">
+68 / 100
+</span>
+</div>
+<div class="risk-bar">
+<div class="risk-fill bg-red-400" style="width:68%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400">
+Rate Pressure
+</span>
+<span class="text-orange-400">
+74 / 100
+</span>
+</div>
+<div class="risk-bar">
+<div class="risk-fill bg-orange-400" style="width:74%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400">
+Growth Risk
+</span>
+<span class="text-yellow-400">
+43 / 100
+</span>
+</div>
+<div class="risk-bar">
+<div class="risk-fill bg-yellow-400" style="width:43%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="text-slate-400">
+Geopolitical
+</span>
+<span class="text-orange-400">
+61 / 100
+</span>
+</div>
+<div class="risk-bar">
+<div class="risk-fill bg-orange-400" style="width:61%"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-800 flex justify-between">
+<span class="text-xs text-slate-500">
+Composite
+</span>
+<span class="text-sm font-bold text-orange-400">
+MODERATE-HIGH
+</span>
+</div>
+</div>
+</div><div class="glass terminal-border rounded-xl p-5 glow-gold">
+<div class="flex items-center justify-between">
+<div>
+<div class="text-[10px] tracking-widest text-yellow-400">
+GOLD DATA FEED
+</div>
+<div class="text-sm font-semibold text-white mt-1">
+黄金数据状态
+</div>
+</div>
+<span class="live-dot" id="sideGoldDot"></span>
+</div>
+<div class="mt-5">
+<div class="text-[10px] text-slate-600">
+XAU/USD
+</div>
+<div class="number mt-1 text-3xl font-bold text-yellow-400" id="sideGoldPrice">
+--
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-800 space-y-3">
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">
+Status
+</span>
+<span class="text-green-400" id="sideGoldStatus">
+LIVE
+</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">
+Updated
+</span>
+<span class="font-mono text-slate-400" id="sideGoldTime">
+--
+</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-slate-500">
+Refresh
+</span>
+<span class="text-slate-400">
+120 sec
+</span>
+</div>
+</div>
+</div><div class="glass terminal-border rounded-xl p-5">
+<div class="text-[10px] tracking-[.2em] text-slate-600">
+EVIDENCE POLICY
+</div>
+<div class="mt-4 space-y-3 text-[11px] leading-6 text-slate-500">
+<div>
+<span class="text-green-400">✓</span>
+只把原文明确陈述作为事实。
+</div>
+<div>
+<span class="text-green-400">✓</span>
+推断必须与事实区分。
+</div>
+<div>
+<span class="text-green-400">✓</span>
+没有依据时标记无法确认。
+</div>
+<div>
+<span class="text-green-400">✓</span>
+风险分析不是投资建议。
+</div>
+</div>
+</div><div class="glass terminal-border rounded-xl p-5">
+<div class="text-[10px] tracking-[.2em] text-slate-600">
+SYSTEM
+</div>
+<div class="mt-4 space-y-3 text-xs">
+<div class="flex justify-between">
+<span class="text-slate-500">
+Gold API
+</span>
+<span class="text-yellow-400" id="apiStatus">
+CONNECTING
+</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">
+Data Mode
+</span>
+<span class="text-sky-400">
+LIVE
+</span>
+</div>
+<div class="flex justify-between">
+<span class="text-slate-500">
+Last Update
+</span>
+<span class="font-mono text-slate-300" id="lastUpdate">
+--
+</span>
+</div>
+</div>
+</div></div></div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800"><div class="text-[10px] tracking-[.25em] text-sky-400 font-mono">GLOBAL / MALAYSIA NEWS · V3</div><h2 class="mt-1 text-sm font-semibold text-white">📰 全球 / 马来西亚财经新闻</h2><div class="text-[11px] text-slate-500 mt-1">优先显示官方与监管来源；点击标题查看原文</div></div>
+<div class="p-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
+<a class="market-v2-card rounded-xl p-5 block hover:border-sky-400/40 transition" href="https://www.mida.gov.my/media-release/malaysia-secures-rm218-5-billion-in-approved-investments-in-1h-2026-with-domestic-investment-in-manufacturing-up-23/" rel="noopener" target="_blank"><div class="flex justify-between gap-3"><span class="text-[9px] text-sky-400">MIDA · 28 AUG 2026</span><span class="text-green-400">INVESTMENT</span></div><div class="mt-3 text-sm font-semibold text-white">Malaysia 1H 2026 获批投资 RM218.5B</div><div class="mt-2 text-xs leading-6 text-slate-500">外资 RM126.9B、国内投资 RM91.6B；Selangor、Johor、Kuala Lumpur 位居主要投资目的地。</div></a>
+<a class="market-v2-card rounded-xl p-5 block hover:border-sky-400/40 transition" href="https://www.bnm.gov.my/monetary-stability" rel="noopener" target="_blank"><div class="flex justify-between gap-3"><span class="text-[9px] text-sky-400">BNM · OCT 2026</span><span class="text-green-400">MACRO</span></div><div class="mt-3 text-sm font-semibold text-white">Malaysia Monetary Stability 快照</div><div class="mt-2 text-xs leading-6 text-slate-500">OPR 2.75%、Headline Inflation 1.8%、Q2 2026 GDP Growth 6.0%。</div></a>
+<a class="market-v2-card rounded-xl p-5 block hover:border-sky-400/40 transition" href="https://financialmarkets.bnm.gov.my/data-download-opr" rel="noopener" target="_blank"><div class="flex justify-between gap-3"><span class="text-[9px] text-sky-400">BNM FMIP · OCT 2026</span><span class="text-yellow-400">RATES / FX</span></div><div class="mt-3 text-sm font-semibold text-white">MGS 10Y 4.00% · USD/MYR 4.0858</div><div class="mt-2 text-xs leading-6 text-slate-500">官方金融市场数据页显示 MGS 10 年收益率 4.00%（5 Oct）及 KL USD/MYR 4.0858（6 Oct）。</div></a>
+<a class="market-v2-card rounded-xl p-5 block hover:border-sky-400/40 transition" href="https://www.sc.com.my/capital-market-masterplan" rel="noopener" target="_blank"><div class="flex justify-between gap-3"><span class="text-[9px] text-sky-400">SC · 2026–2030</span><span class="text-sky-400">CAPITAL MARKET</span></div><div class="mt-3 text-sm font-semibold text-white">Capital Market Masterplan 2026–2030</div><div class="mt-2 text-xs leading-6 text-slate-500">围绕 vibrancy、inclusivity、sustainability 与 regional opportunities 重塑马来西亚资本市场。</div></a>
+</div>
+</div></section>
+<section class="mb-6">
+<div class="glass terminal-border rounded-xl overflow-hidden glow-blue">
+<div class="px-5 py-4 border-b border-slate-800"><div class="text-[10px] tracking-[.25em] text-sky-400 font-mono">AI MACRO ANALYST · V3</div><h2 class="mt-1 text-sm font-semibold text-white">🧠 AI 宏观分析终端</h2><div class="text-[11px] text-slate-500 mt-1">新闻 → 数据 → 判断 → 风险</div></div>
+<div class="p-5 grid grid-cols-1 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-5"><div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800">
+<div class="text-[10px] tracking-[.2em] text-sky-400 font-mono">NEWS INPUT</div>
+<h2 class="mt-1 text-sm font-semibold text-white">输入财经新闻</h2>
+<div class="text-[11px] text-slate-500 mt-1">
+Paste latest macro news for structured analysis
+</div>
+</div>
+<div class="p-5">
+<textarea class="w-full rounded-xl bg-[#070b14] border border-slate-800 focus:border-sky-500/50 focus:ring-2 focus:ring-sky-500/10 outline-none p-4 text-sm leading-7 text-slate-300 placeholder:text-slate-700" id="newsInput" placeholder="例如：
+
+美联储官员表示，通胀仍高于2%的目标，目前没有必要急于降息。与此同时，美国国债收益率出现上升，市场重新评估年内降息预期。
+
+请粘贴完整新闻原文……" rows="6">
+</textarea>
+<div class="mt-4 flex justify-between items-center gap-3">
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-500">
+MACRO
+</span>
+<span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-500">
+RATES
+</span>
+<span class="px-2 py-1 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-500">
+INFLATION
+</span>
+</div>
+<button class="px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm flex items-center gap-2" id="analyzeBtn" onclick="analyzeNews()">
+<span id="btnIcon">
+✦
+</span>
+<span id="btnText">
+AI 智能分析
+</span>
+</button>
+</div>
+</div>
+</div><div class="glass terminal-border rounded-xl overflow-hidden">
+<div class="px-5 py-4 border-b border-slate-800 flex justify-between">
+<div>
+<div class="text-[10px] tracking-[.2em] text-sky-400 font-mono">AI OUTPUT</div>
+<h2 class="mt-1 text-sm font-semibold text-white">结构化分析结果</h2>
+</div>
+<div class="text-[10px] px-2 py-1 rounded bg-slate-900 border border-slate-800 text-slate-500" id="analysisStatus">
+
+WAITING
+
+</div>
+</div>
+<div class="p-10 text-center" id="analysisEmpty">
+<div class="text-4xl text-slate-800">
+◇
+</div>
+<div class="mt-4 text-sm text-slate-500">
+等待新闻输入
+</div>
+<div class="text-[11px] text-slate-700 mt-2">
+AI 分析结果将在这里显示
+</div>
+</div>
+<div class="hidden p-5 space-y-6" id="analysisContent">
+<div>
+<div class="text-xs text-sky-400 font-mono mb-3">
+01 · SUMMARY
+</div>
+<div class="rounded-lg bg-[#080d18] border border-slate-800 p-4 text-sm leading-7 text-slate-300" id="translation">
+</div>
+</div>
+<div>
+<div class="text-xs text-sky-400 font-mono mb-3">
+02 · KEYWORDS
+</div>
+<div class="flex flex-wrap gap-2" id="keywords">
+</div>
+</div>
+<div>
+<div class="text-xs text-amber-400 font-mono mb-3">
+03 · ORIGINAL EVIDENCE
+</div>
+<div class="rounded-lg bg-amber-400/5 border border-amber-400/10 p-4 text-sm leading-7 text-slate-300" id="evidence">
+</div>
+</div>
+<div>
+<div class="text-xs text-red-400 font-mono mb-3">
+04 · MACRO RISK
+</div>
+<div class="rounded-xl border p-5" id="riskBox">
+<div class="flex justify-between">
+<div>
+<div class="text-[10px] text-slate-500">
+RISK LEVEL
+</div>
+<div class="mt-1 text-2xl font-bold" id="riskLevel">
+--
+</div>
+</div>
+<div class="text-right">
+<div class="text-[10px] text-slate-500">
+CONFIDENCE
+</div>
+<div class="mt-1 text-xl font-bold text-white" id="confidence">
+--
+</div>
+</div>
+</div>
+<div class="mt-5 risk-bar">
+<div class="risk-fill" id="riskProgress" style="width:0%">
+</div>
+</div>
+<div class="mt-5 text-sm leading-7 text-slate-300" id="riskConclusion">
+</div>
+</div>
+</div>
+<div class="rounded-lg border border-sky-400/10 bg-sky-400/5 p-4 text-[11px] leading-6 text-slate-500">
+<b class="text-sky-300">
+Evidence First
+</b>
+<br/>
+
+没有原文依据的推断，不应被包装成新闻事实。
+
+</div>
+</div>
+</div></div>
+</div></section>
+</main>
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+<script>
+
+
+/* =====================================================
+   CLOCK
+===================================================== */
+
+function updateClock(){
+
+    const now = new Date();
+
+    const time =
+        now.toLocaleTimeString(
+            "zh-CN",
+            {
+                hour12:false,
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit"
+            }
+        );
+
+    document.getElementById("clock").textContent =
+        time;
+}
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+/* =====================================================
+   GOLD API
+===================================================== */
+
+const GOLD_API =
+    "https://gold-price-proxy.qiyue335335.workers.dev/gold";
+
+const KARAT_API =
+    "https://gold-price-proxy.qiyue335335.workers.dev/carat";
+
+
+async function fetchGoldPrice(){
+
+    setGoldLoading();
+
+    try{
+
+        const response =
+            await fetch(
+                GOLD_API,
+                {
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Gold API HTTP " +
+                response.status
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+
+        const price =
+            Number(data.price);
+
+        // Upstream gold endpoint may not supply BID/ASK.
+        // In that case show indicative estimates, as the older dashboard did.
+        // These are estimates, not exchange-confirmed bid/ask quotes.
+        const bid =
+            data.bid !== null &&
+            data.bid !== undefined &&
+            Number.isFinite(Number(data.bid))
+                ? Number(data.bid)
+                : price - 0.25;
+
+        const ask =
+            data.ask !== null &&
+            data.ask !== undefined &&
+            Number.isFinite(Number(data.ask))
+                ? Number(data.ask)
+                : price + 0.25;
+
+
+        if(!Number.isFinite(price)){
+
+            throw new Error(
+                "Invalid gold price"
+            );
+
+        }
+
+
+        updateGoldUI(
+            price,
+            bid,
+            ask,
+            data.stale === true,
+            data.updated_at
+        );
+
+
+        fetchKaratPrice();
+
+    }
+    catch(error){
+
+        console.error(
+            "Gold API Error:",
+            error
+        );
+
+        setGoldError();
+
+    }
+
+}
+
+
+/* =====================================================
+   KARAT PRICE
+===================================================== */
+
+async function fetchKaratPrice(){
+
+    try{
+
+        const response =
+            await fetch(
+                KARAT_API,
+                {
+                    cache:"no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Karat API error"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        const p24 =
+            Number(data.price_gram_24k);
+
+        const p22 =
+            Number(data.price_gram_22k);
+
+
+        if(Number.isFinite(p24)){
+
+            document.getElementById(
+                "goldGram"
+            ).textContent =
+                "RM " +
+                p24.toFixed(2);
+
+            document.getElementById(
+                "goldMYRGram"
+            ).textContent =
+                "RM " +
+                p24.toFixed(2);
+
+        }
+
+
+        if(Number.isFinite(p22)){
+
+            document.getElementById(
+                "gold22Gram"
+            ).textContent =
+                "RM " +
+                p22.toFixed(2);
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Karat API Error:",
+            error
+        );
+
+        document.getElementById(
+            "goldGram"
+        ).textContent="--";
+
+        document.getElementById(
+            "goldMYRGram"
+        ).textContent="--";
+
+        document.getElementById(
+            "gold22Gram"
+        ).textContent="--";
+
+    }
+
+}
+
+
+/* =====================================================
+   GOLD LOADING
+===================================================== */
+
+function setGoldLoading(){
+
+    document.getElementById(
+        "goldPrice"
+    ).innerHTML =
+        '<div class="gold-loader"></div>';
+
+    document.getElementById(
+        "goldMainPrice"
+    ).innerHTML =
+        '<div class="gold-loader"></div>';
+
+    document.getElementById(
+        "apiStatus"
+    ).textContent =
+        "CONNECTING";
+
+    document.getElementById(
+        "apiStatus"
+    ).className =
+        "text-yellow-400";
+
+}
+
+
+/* =====================================================
+   GOLD UI
+===================================================== */
+
+function updateGoldUI(
+    price,
+    bid,
+    ask,
+    stale,
+    updatedAt
+){
+
+    const formatted =
+        price.toLocaleString(
+            "en-US",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        );
+
+
+    const bidFormatted =
+        Number.isFinite(bid)
+            ? bid.toLocaleString(
+                "en-US",
+                {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                }
+            )
+            : "--";
+
+
+    const askFormatted =
+        Number.isFinite(ask)
+            ? ask.toLocaleString(
+                "en-US",
+                {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                }
+            )
+            : "--";
+
+
+    document.getElementById(
+        "goldPrice"
+    ).textContent =
+        "$ " + formatted;
+
+
+    document.getElementById(
+        "goldMainPrice"
+    ).textContent =
+        "$ " + formatted;
+
+
+    document.getElementById(
+        "goldBid"
+    ).textContent =
+        "$ " + bidFormatted;
+
+
+    document.getElementById(
+        "goldAsk"
+    ).textContent =
+        "$ " + askFormatted;
+
+
+    document.getElementById(
+        "goldDetailBid"
+    ).textContent =
+        "$ " + bidFormatted;
+
+
+    document.getElementById(
+        "goldDetailAsk"
+    ).textContent =
+        "$ " + askFormatted;
+
+
+    document.getElementById(
+        "sideGoldPrice"
+    ).textContent =
+        "$ " + formatted;
+
+
+    document.getElementById(
+        "tableGold"
+    ).textContent =
+        "$ " + formatted;
+
+
+    document.getElementById(
+        "tickerGold"
+    ).textContent =
+        "$ " + formatted;
+
+
+    const dots = [
+        "goldStatusDot",
+        "sideGoldDot"
+    ];
+
+
+    dots.forEach(
+        id=>{
+
+            const element =
+                document.getElementById(id);
+
+            if(stale){
+
+                element.className =
+                    "stale-dot";
+
+            }else{
+
+                element.className =
+                    "live-dot";
+
+            }
+
+        }
+    );
+
+
+    const status =
+        stale
+            ? "STALE"
+            : "LIVE";
+
+
+    document.getElementById(
+        "goldState"
+    ).textContent =
+        stale
+            ? "● STALE"
+            : "● LIVE";
+
+
+    document.getElementById(
+        "goldState"
+    ).className =
+        stale
+            ? "text-[10px] text-orange-400"
+            : "text-[10px] text-green-400";
+
+
+    document.getElementById(
+        "goldLiveBadge"
+    ).textContent =
+        stale
+            ? "● STALE"
+            : "● LIVE";
+
+
+    document.getElementById(
+        "goldLiveBadge"
+    ).className =
+        stale
+            ? "px-2 py-1 rounded bg-orange-400/10 text-orange-400 text-[10px]"
+            : "px-2 py-1 rounded bg-green-400/10 text-green-400 text-[10px]";
+
+
+    document.getElementById(
+        "sideGoldStatus"
+    ).textContent =
+        status;
+
+
+    document.getElementById(
+        "sideGoldStatus"
+    ).className =
+        stale
+            ? "text-orange-400"
+            : "text-green-400";
+
+
+    document.getElementById(
+        "tableGoldState"
+    ).textContent =
+        status;
+
+
+    document.getElementById(
+        "tableGoldState"
+    ).className =
+        stale
+            ? "px-5 py-4 text-orange-400"
+            : "px-5 py-4 text-green-400";
+
+
+    document.getElementById(
+        "apiStatus"
+    ).textContent =
+        stale
+            ? "STALE"
+            : "CONNECTED";
+
+
+    document.getElementById(
+        "apiStatus"
+    ).className =
+        stale
+            ? "text-orange-400"
+            : "text-green-400";
+
+
+    let displayTime = "--";
+
+
+    if(updatedAt){
+
+        const date =
+            new Date(updatedAt);
+
+        if(!Number.isNaN(date.getTime())){
+
+            displayTime =
+                date.toLocaleTimeString(
+                    "zh-CN",
+                    {
+                        hour12:false,
+                        hour:"2-digit",
+                        minute:"2-digit",
+                        second:"2-digit"
+                    }
+                );
+
+        }
+
+    }
+
+
+    document.getElementById(
+        "goldUpdated"
+    ).textContent =
+        displayTime;
+
+
+    document.getElementById(
+        "sideGoldTime"
+    ).textContent =
+        displayTime;
+
+
+    document.getElementById(
+        "lastUpdate"
+    ).textContent =
+        displayTime;
+
+}
+
+
+/* =====================================================
+   GOLD ERROR
+===================================================== */
+
+function setGoldError(){
+
+    document.getElementById(
+        "goldPrice"
+    ).textContent =
+        "OFFLINE";
+
+
+    document.getElementById(
+        "goldMainPrice"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "sideGoldPrice"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "tableGold"
+    ).textContent =
+        "--";
+
+
+    document.getElementById(
+        "tickerGold"
+    ).textContent =
+        "OFFLINE";
+
+
+    document.getElementById(
+        "goldState"
+    ).textContent =
+        "● OFFLINE";
+
+
+    document.getElementById(
+        "goldState"
+    ).className =
+        "text-[10px] text-red-400";
+
+
+    document.getElementById(
+        "goldLiveBadge"
+    ).textContent =
+        "● OFFLINE";
+
+
+    document.getElementById(
+        "goldLiveBadge"
+    ).className =
+        "px-2 py-1 rounded bg-red-400/10 text-red-400 text-[10px]";
+
+
+    document.getElementById(
+        "apiStatus"
+    ).textContent =
+        "OFFLINE";
+
+
+    document.getElementById(
+        "apiStatus"
+    ).className =
+        "text-red-400";
+
+
+    document.getElementById(
+        "sideGoldStatus"
+    ).textContent =
+        "OFFLINE";
+
+
+    document.getElementById(
+        "sideGoldStatus"
+    ).className =
+        "text-red-400";
+
+}
+
+
+/* =====================================================
+   V2 MARKET DATA
+===================================================== */
+
+const XAUS_SPOT_V2 =
+    "https://xaus.com/api/v1/spot?compact=1&fresh=";
+
+const XAUS_INTRADAY_V2 =
+    "https://xaus.com/api/v1/intraday?symbol=xau&hours=24&fresh=";
+
+const YAHOO_V2 =
+    "https://query1.finance.yahoo.com/v8/finance/chart/";
+
+const PROXY_BASE =
+    "https://market-proxy.qiyue335335.workers.dev/?url=";
+
+
+/* =====================================================
+   CLOUDFLARE WORKER
+===================================================== */
+
+const MARKET_WORKER =
+    "https://market-data-proxy.qiyue335335.workers.dev";
+
+
+/* =====================================================
+   YAHOO QUOTE
+===================================================== */
+
+async function yahooQuote(symbol){
+
+    const r =
+        await fetch(
+            PROXY_BASE +
+            encodeURIComponent(
+                YAHOO_V2 +
+                encodeURIComponent(symbol) +
+                "?range=1d&interval=5m&includePrePost=false"
+            ),
+            {
+                cache:"no-store"
+            }
+        );
+
+
+    if(!r.ok){
+
+        throw new Error(
+            "Yahoo " + r.status
+        );
+
+    }
+
+
+    const j =
+        await r.json();
+
+
+    const m =
+        j.chart.result?.[0]?.meta;
+
+
+    if(
+        !m ||
+        !Number.isFinite(
+            m.regularMarketPrice
+        )
+    ){
+
+        throw new Error(
+            "No quote"
+        );
+
+    }
+
+
+    return {
+
+        price:
+            m.regularMarketPrice,
+
+        prev:
+            m.chartPreviousClose ??
+            m.previousClose ??
+            null,
+
+        currency:
+            m.currency || ""
+
+    };
+
+}
+
+
+/* =====================================================
+   CHANGE DISPLAY
+===================================================== */
+
+function paintChange(
+    id,
+    price,
+    prev,
+    unit=""
+){
+
+    const el =
+        document.getElementById(id);
+
+
+    if(!el){
+        return;
+    }
+
+
+    if(
+        !Number.isFinite(prev) ||
+        !Number.isFinite(price)
+    ){
+
+        el.textContent =
+            "--";
+
+        el.className =
+            "mt-2 text-xs v2-flat";
+
+        return;
+
+    }
+
+
+    const d =
+        price - prev;
+
+    const pct =
+        prev
+            ? d / prev * 100
+            : 0;
+
+
+    const sign =
+        d > 0
+            ? "▲ "
+            : d < 0
+            ? "▼ "
+            : "→ ";
+
+
+    el.textContent =
+        sign +
+        (d > 0 ? "+" : "") +
+        d.toFixed(2) +
+        unit +
+        " (" +
+        (pct > 0 ? "+" : "") +
+        pct.toFixed(2) +
+        "%)";
+
+
+    el.className =
+        "mt-2 text-xs " +
+        (
+            d > 0
+                ? "v2-up"
+                : d < 0
+                ? "v2-down"
+                : "v2-flat"
+        );
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function setMarketStatus(
+    id,
+    text,
+    cls
+){
+
+    const e =
+        document.getElementById(id);
+
+
+    if(e){
+
+        e.textContent =
+            text;
+
+        e.className =
+            "v2-status " +
+            cls;
+
+    }
+
+}
+
+
+/* =====================================================
+   BTC 24H CHART
+===================================================== */
+
+function drawBtcChart(points){
+
+    const c =
+        document.getElementById(
+            "btcChart"
+        );
+
+
+    if(
+        !c ||
+        !points ||
+        points.length < 2
+    ){
+
+        return;
+
+    }
+
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+
+    const w =
+        c.clientWidth || 400;
+
+
+    const h =
+        80;
+
+
+    c.innerHTML =
+        "";
+
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        w * dpr;
+
+
+    canvas.height =
+        h * dpr;
+
+
+    canvas.style.width =
+        w + "px";
+
+
+    canvas.style.height =
+        h + "px";
+
+
+    c.appendChild(
+        canvas
+    );
+
+
+    const ctx =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    ctx.scale(
+        dpr,
+        dpr
+    );
+
+
+    const values =
+        points
+            .map(
+                p=>Number(p.price)
+            )
+            .filter(
+                Number.isFinite
+            );
+
+
+    if(
+        values.length < 2
+    ){
+
+        return;
+
+    }
+
+
+    const min =
+        Math.min(...values);
+
+
+    const max =
+        Math.max(...values);
+
+
+    const padding =
+        5;
+
+
+    ctx.beginPath();
+
+
+    values.forEach(
+        (value,i)=>{
+
+            const x =
+                padding +
+                i *
+                (
+                    w -
+                    padding * 2
+                ) /
+                (
+                    values.length - 1
+                );
+
+
+            const y =
+                h -
+                padding -
+                (
+                    (
+                        value -
+                        min
+                    ) /
+                    (
+                        max -
+                        min ||
+                        1
+                    )
+                ) *
+                (
+                    h -
+                    padding * 2
+                );
+
+
+            if(i === 0){
+
+                ctx.moveTo(
+                    x,
+                    y
+                );
+
+            }else{
+
+                ctx.lineTo(
+                    x,
+                    y
+                );
+
+            }
+
+        }
+    );
+
+
+    ctx.strokeStyle =
+        "#39ffb6";
+
+
+    ctx.lineWidth =
+        2;
+
+
+    ctx.stroke();
+
+}
+
+
+/* =====================================================
+   GLOBAL MARKET
+===================================================== */
+
+async function loadGlobalV2(){
+
+    const jobs = [
+
+        [
+            "v2Dxy",
+            "v2DxyChg",
+            "DX-Y.NYB",
+            ""
+        ],
+
+        [
+            "v2Usdm",
+            "v2UsdmChg",
+            "MYR=X",
+            ""
+        ],
+
+        [
+            "v2Silver",
+            "v2SilverChg",
+            null,
+            ""
+        ],
+
+        [
+            "v2Wti",
+            "v2WtiChg",
+            "CL=F",
+            ""
+        ],
+
+        [
+            "v2Btc",
+            "v2BtcChg",
+            null,
+            ""
+        ],
+
+        [
+            "v2Vix",
+            "v2VixChg",
+            "^VIX",
+            ""
+        ]
+
+    ];
+
+
+    let ok = 0;
+
+
+    /* =========================================
+       SILVER
+    ========================================= */
+
+    try{
+
+        const spot =
+            await fetch(
+                PROXY_BASE +
+                encodeURIComponent(
+                    XAUS_SPOT_V2 + Date.now()
+                ),
+                {
+                    cache:"no-store"
+                }
+            )
+            .then(
+                r=>{
+                    if(!r.ok){
+                        throw new Error(
+                            "Silver API error"
+                        );
+                    }
+
+                    return r.json();
+                }
+            );
+
+
+        const silver =
+            Number(
+                spot.silver_usd_oz
+            );
+
+
+        if(
+            Number.isFinite(silver)
+        ){
+
+            document.getElementById(
+                "v2Silver"
+            ).textContent =
+                "$ " +
+                silver.toLocaleString(
+                    "en-US",
+                    {
+                        minimumFractionDigits:2,
+                        maximumFractionDigits:2
+                    }
+                );
+
+
+            ok++;
+
+        }
+
+    }
+    catch(e){
+
+        console.error(
+            "Silver:",
+            e
+        );
+
+
+        document.getElementById(
+            "v2Silver"
+        ).textContent =
+            "OFFLINE";
+
+    }
+
+
+    /* =========================================
+       BTC
+    ========================================= */
+
+    try{
+
+        const historyRes =
+            await fetch(
+                MARKET_WORKER +
+                "/api/history?symbol=BTC&_=" +
+                Date.now(),
+                {
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!historyRes.ok){
+
+            throw new Error(
+                "BTC history HTTP " +
+                historyRes.status
+            );
+
+        }
+
+
+        const historyJson =
+            await historyRes.json();
+
+
+        const points =
+            Array.isArray(
+                historyJson.data
+            )
+                ? historyJson.data
+                : [];
+
+
+        if(
+            points.length > 0
+        ){
+
+            const latest =
+                points[
+                    points.length - 1
+                ];
+
+
+            const btcPrice =
+                Number(
+                    latest.price
+                );
+
+
+            if(
+                Number.isFinite(
+                    btcPrice
+                )
+            ){
+
+                document.getElementById(
+                    "v2Btc"
+                ).textContent =
+                    "$ " +
+                    btcPrice.toLocaleString(
+                        "en-US",
+                        {
+                            maximumFractionDigits:0
+                        }
+                    );
+
+
+                ok++;
+
+
+                /* 24H CHANGE */
+
+                if(
+                    points.length >= 2
+                ){
+
+                    const first =
+                        Number(
+                            points[0].price
+                        );
+
+
+                    if(
+                        Number.isFinite(
+                            first
+                        ) &&
+                        first !== 0
+                    ){
+
+                        const change =
+                            btcPrice -
+                            first;
+
+
+                        const changePercent =
+                            change /
+                            first *
+                            100;
+
+
+                        const changeEl =
+                            document.getElementById(
+                                "v2BtcChg"
+                            );
+
+
+                        changeEl.textContent =
+                            (
+                                change > 0
+                                    ? "▲ +"
+                                    : change < 0
+                                    ? "▼ "
+                                    : "→ "
+                            ) +
+                            change.toFixed(2) +
+                            " (" +
+                            (
+                                changePercent > 0
+                                    ? "+"
+                                    : ""
+                            ) +
+                            changePercent.toFixed(2) +
+                            "%)";
+
+
+                        changeEl.className =
+                            "mt-2 text-xs " +
+                            (
+                                change > 0
+                                    ? "v2-up"
+                                    : change < 0
+                                    ? "v2-down"
+                                    : "v2-flat"
+                            );
+
+                    }
+
+                }
+
+
+                drawBtcChart(
+                    points
+                );
+
+            }
+            else{
+
+                document.getElementById(
+                    "v2Btc"
+                ).textContent =
+                    "OFFLINE";
+
+            }
+
+        }
+        else{
+
+            document.getElementById(
+                "v2Btc"
+            ).textContent =
+                "OFFLINE";
+
+        }
+
+    }
+    catch(e){
+
+        console.error(
+            "BTC:",
+            e
+        );
+
+
+        document.getElementById(
+            "v2Btc"
+        ).textContent =
+            "OFFLINE";
+
+    }
+
+
+    /* =========================================
+       YAHOO MARKET DATA
+    ========================================= */
+
+    for(
+        const [id,ch,sym]
+        of jobs.filter(
+            x=>x[2]
+        )
+    ){
+
+        try{
+
+            const q =
+                await yahooQuote(
+                    sym
+                );
+
+
+            const el =
+                document.getElementById(
+                    id
+                );
+
+
+            if(!el){
+                continue;
+            }
+
+
+            if(
+                sym === "MYR=X"
+            ){
+
+                el.textContent =
+                    q.price.toFixed(4);
+
+            }
+            else{
+
+                el.textContent =
+                    q.price.toLocaleString(
+                        "en-US",
+                        {
+                            minimumFractionDigits:2,
+                            maximumFractionDigits:2
+                        }
+                    );
+
+            }
+
+
+            paintChange(
+                ch,
+                q.price,
+                q.prev
+            );
+
+
+            ok++;
+
+        }
+        catch(e){
+
+            console.error(
+                sym + ":",
+                e
+            );
+
+
+            const el =
+                document.getElementById(
+                    id
+                );
+
+
+            if(el){
+
+                el.textContent =
+                    "OFFLINE";
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================
+       STATUS
+    ========================================= */
+
+    setMarketStatus(
+        "marketV2Status",
+
+        ok >= 4
+            ? "LIVE / DELAYED"
+            : "PARTIAL / OFFLINE",
+
+        ok >= 4
+            ? "text-green-400"
+            : "text-yellow-400"
+    );
+
+}
+
+
+/* =====================================================
+   MALAYSIA MARKET
+===================================================== */
+
+async function loadMalaysiaV2(){
+
+    let ok = 0;
+
+
+    /* KLCI */
+
+    try{
+
+        const q =
+            await yahooQuote(
+                "^KLSE"
+            );
+
+
+        document.getElementById(
+            "myKlci"
+        ).textContent =
+            q.price.toLocaleString(
+                "en-US",
+                {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        paintChange(
+            "myKlciChg",
+            q.price,
+            q.prev
+        );
+
+
+        ok++;
+
+    }
+    catch(e){
+
+        console.error(
+            "KLCI:",
+            e
+        );
+
+
+        document.getElementById(
+            "myKlci"
+        ).textContent =
+            "OFFLINE";
+
+    }
+
+
+    /* SUNWAY REIT */
+
+    try{
+
+        const q =
+            await yahooQuote(
+                "5176.KL"
+            );
+
+
+        document.getElementById(
+            "mySunway"
+        ).textContent =
+            "RM " +
+            q.price.toFixed(3);
+
+
+        paintChange(
+            "mySunwayChg",
+            q.price,
+            q.prev,
+            " RM"
+        );
+
+
+        ok++;
+
+    }
+    catch(e){
+
+        console.error(
+            "Sunway REIT:",
+            e
+        );
+
+
+        document.getElementById(
+            "mySunway"
+        ).textContent =
+            "OFFLINE";
+
+    }
+
+
+    setMarketStatus(
+        "myMarketStatus",
+
+        ok === 2
+            ? "LIVE / DELAYED"
+            : "PARTIAL / OFFLINE",
+
+        ok === 2
+            ? "text-green-400"
+            : "text-yellow-400"
+    );
+
+}
+
+
+/* =====================================================
+   GOLD CHART
+===================================================== */
+
+function drawGoldChart(points){
+
+    const c =
+        document.getElementById(
+            "goldChart"
+        );
+
+
+    if(
+        !c ||
+        !points ||
+        !points.length
+    ){
+
+        return;
+
+    }
+
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+
+    const w =
+        c.clientWidth || 600;
+
+
+    const h =
+        180;
+
+
+    c.width =
+        w * dpr;
+
+
+    c.height =
+        h * dpr;
+
+
+    const x =
+        c.getContext(
+            "2d"
+        );
+
+
+    x.scale(
+        dpr,
+        dpr
+    );
+
+
+    x.clearRect(
+        0,
+        0,
+        w,
+        h
+    );
+
+
+    const vals =
+        points
+            .map(
+                p=>Number(p.p)
+            )
+            .filter(
+                Number.isFinite
+            );
+
+
+    if(
+        vals.length < 2
+    ){
+
+        return;
+
+    }
+
+
+    const min =
+        Math.min(...vals);
+
+
+    const max =
+        Math.max(...vals);
+
+
+    const pad =
+        12;
+
+
+    x.beginPath();
+
+
+    vals.forEach(
+        (v,i)=>{
+
+            const xx =
+                pad +
+                i *
+                (
+                    w -
+                    pad * 2
+                ) /
+                (
+                    vals.length - 1
+                );
+
+
+            const yy =
+                h -
+                pad -
+                (
+                    (
+                        v -
+                        min
+                    ) /
+                    (
+                        max -
+                        min ||
+                        1
+                    )
+                ) *
+                (
+                    h -
+                    pad * 2
+                );
+
+
+            if(i){
+
+                x.lineTo(
+                    xx,
+                    yy
+                );
+
+            }
+            else{
+
+                x.moveTo(
+                    xx,
+                    yy
+                );
+
+            }
+
+        }
+    );
+
+
+    x.strokeStyle =
+        "#facc15";
+
+
+    x.lineWidth =
+        2;
+
+
+    x.stroke();
+
+}
+
+
+/* =====================================================
+   GOLD 24H DATA
+===================================================== */
+
+async function loadGoldV2(){
+
+    try{
+
+        const j =
+            await fetch(
+                PROXY_BASE +
+                encodeURIComponent(
+                    XAUS_INTRADAY_V2 + Date.now()
+                ),
+                {
+                    cache:"no-store"
+                }
+            )
+            .then(
+                r=>{
+                    if(!r.ok){
+                        throw new Error(
+                            "Gold intraday error"
+                        );
+                    }
+
+                    return r.json();
+                }
+            );
+
+
+        const pts =
+            (
+                j.points || []
+            )
+            .filter(
+                p =>
+                    Number.isFinite(
+                        Number(p.p)
+                    )
+            );
+
+
+        if(
+            pts.length < 2
+        ){
+
+            throw new Error(
+                "Not enough gold points"
+            );
+
+        }
+
+
+        const vals =
+            pts.map(
+                p=>Number(p.p)
+            );
+
+
+        const first =
+            vals[0];
+
+
+        const last =
+            vals[
+                vals.length - 1
+            ];
+
+
+        const high =
+            Math.max(...vals);
+
+
+        const low =
+            Math.min(...vals);
+
+
+        const diff =
+            last - first;
+
+
+        const pct =
+            first
+                ? diff / first * 100
+                : 0;
+
+
+        document.getElementById(
+            "gold24High"
+        ).textContent =
+            "$ " +
+            high.toLocaleString(
+                "en-US",
+                {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        document.getElementById(
+            "gold24Low"
+        ).textContent =
+            "$ " +
+            low.toLocaleString(
+                "en-US",
+                {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        const ch =
+            document.getElementById(
+                "gold24Change"
+            );
+
+
+        ch.textContent =
+            (
+                diff >= 0
+                    ? "▲ +"
+                    : "▼ "
+            ) +
+            diff.toFixed(2) +
+            " (" +
+            (
+                pct >= 0
+                    ? "+"
+                    : ""
+            ) +
+            pct.toFixed(2) +
+            "%)";
+
+
+        ch.className =
+            "mt-2 text-xl font-bold " +
+            (
+                diff > 0
+                    ? "v2-up"
+                    : diff < 0
+                    ? "v2-down"
+                    : "v2-flat"
+            );
+
+
+        drawGoldChart(
+            pts
+        );
+
+
+        document.getElementById(
+            "goldChartState"
+        ).textContent =
+            "LIVE";
+
+
+        document.getElementById(
+            "goldChartState"
+        ).className =
+            "v2-status text-green-400";
+
+    }
+    catch(e){
+
+        console.error(
+            "Gold 24H:",
+            e
+        );
+
+
+        document.getElementById(
+            "goldChartState"
+        ).textContent =
+            "OFFLINE";
+
+
+        document.getElementById(
+            "goldChartState"
+        ).className =
+            "v2-status text-red-400";
+
+    }
+
+}
+
+
+/* =====================================================
+   START MARKET DATA
+===================================================== */
+
+loadGlobalV2();
+
+loadMalaysiaV2();
+
+loadGoldV2();
+
+
+/* =====================================================
+   MARKET AUTO REFRESH
+===================================================== */
+
+setInterval(
+    ()=>{
+        loadGlobalV2();
+        loadMalaysiaV2();
+        loadGoldV2();
+    },
+    120000
+);
+
+
+/* =====================================================
+   RESIZE GOLD CHART
+===================================================== */
+
+window.addEventListener(
+    "resize",
+    ()=>{
+        loadGoldV2();
+        loadGlobalV2();
+    }
+);
+
+
+/* =====================================================
+   AUTO GOLD REFRESH
+===================================================== */
+
+fetchGoldPrice();
+
+
+setInterval(
+    fetchGoldPrice,
+    120000
+);
+
+
+/* =====================================================
+   REFRESH ALL
+===================================================== */
+
+function refreshAll(){
+
+    fetchGoldPrice();
+
+    refreshMacro();
+
+    loadGlobalV2();
+
+    loadMalaysiaV2();
+
+    loadGoldV2();
+
+}
+
+
+/* =====================================================
+   DEMO MACRO
+===================================================== */
+
+function refreshMacro(){
+
+    document.getElementById(
+        "cpi"
+    ).textContent =
+        "3.1%";
+
+
+    document.getElementById(
+        "rate"
+    ).textContent =
+        "4.50%";
+
+
+    document.getElementById(
+        "pmi"
+    ).textContent =
+        "51.8";
+
+
+    document.getElementById(
+        "yield10y"
+    ).textContent =
+        "4.18%";
+
+}
+
+
+/* =====================================================
+   KEYWORDS
+===================================================== */
+
+function extractKeywords(text){
+
+    const dictionary = [
+
+        "美联储",
+        "降息",
+        "加息",
+        "通胀",
+        "CPI",
+        "PCE",
+        "PMI",
+        "就业",
+        "失业率",
+        "GDP",
+        "衰退",
+        "国债",
+        "收益率",
+        "美元",
+        "美元指数",
+        "DXY",
+        "黄金",
+        "原油",
+        "央行",
+        "人民币",
+        "汇率",
+        "流动性",
+        "债券",
+        "股市",
+        "利率",
+        "关税",
+        "贸易",
+        "风险",
+        "Fed",
+        "Treasury",
+        "inflation",
+        "recession",
+        "rate cut",
+        "rate hike"
+
+    ];
+
+
+    return dictionary
+        .filter(
+            word =>
+                text
+                    .toLowerCase()
+                    .includes(
+                        word.toLowerCase()
+                    )
+        )
+        .slice(
+            0,
+            12
+        );
+
+}
+
+
+/* =====================================================
+   REGION
+===================================================== */
+
+function detectRegion(text){
+
+    if(
+        /美联储|美国|美元|Fed|Treasury/i
+        .test(text)
+    ){
+
+        return "美国 / US";
+
+    }
+
+
+    if(
+        /欧洲央行|欧元区|欧洲/i
+        .test(text)
+    ){
+
+        return "欧洲 / EU";
+
+    }
+
+
+    if(
+        /日本央行|日本|日元/i
+        .test(text)
+    ){
+
+        return "日本 / Japan";
+
+    }
+
+
+    if(
+        /中国|人民币|中国人民银行/i
+        .test(text)
+    ){
+
+        return "中国 / China";
+
+    }
+
+
+    return "全球 / Global";
+
+}
+
+
+/* =====================================================
+   RISK
+===================================================== */
+
+function calculateRisk(text){
+
+    let score =
+        30;
+
+
+    [
+        "危机",
+        "崩溃",
+        "衰退",
+        "违约",
+        "战争",
+        "制裁",
+        "银行倒闭",
+        "系统性风险",
+        "暴跌",
+        "严重"
+    ].forEach(
+        word=>{
+
+            if(
+                text.includes(word)
+            ){
+
+                score += 8;
+
+            }
+
+        }
+    );
+
+
+    [
+        "通胀",
+        "加息",
+        "降息",
+        "关税",
+        "失业",
+        "收益率上升",
+        "债务",
+        "经济放缓",
+        "政策不确定性"
+    ].forEach(
+        word=>{
+
+            if(
+                text.includes(word)
+            ){
+
+                score += 4;
+
+            }
+
+        }
+    );
+
+
+    score =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                score
+            )
+        );
+
+
+    let level =
+        score >= 75
+            ? "HIGH"
+            : score >= 50
+            ? "MODERATE-HIGH"
+            : score >= 30
+            ? "MODERATE"
+            : "LOW";
+
+
+    return {
+        score,
+        level
+    };
+
+}
+
+
+/* =====================================================
+   ANALYZE NEWS
+===================================================== */
+
+function analyzeNews(){
+
+    const text =
+        document
+            .getElementById(
+                "newsInput"
+            )
+            .value
+            .trim();
+
+
+    if(!text){
+
+        alert(
+            "请先粘贴一条宏观财经新闻。"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "analyzeBtn"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    document.getElementById(
+        "btnIcon"
+    ).innerHTML =
+        '<span class="loader"></span>';
+
+
+    document.getElementById(
+        "btnText"
+    ).textContent =
+        "正在分析…";
+
+
+    document.getElementById(
+        "analysisStatus"
+    ).textContent =
+        "PROCESSING";
+
+
+    setTimeout(
+        ()=>{
+
+            renderAnalysis(
+                text
+            );
+
+
+            button.disabled =
+                false;
+
+
+            document.getElementById(
+                "btnIcon"
+            ).textContent =
+                "✦";
+
+
+            document.getElementById(
+                "btnText"
+            ).textContent =
+                "AI 智能分析";
+
+        },
+        800
+    );
+
+}
+
+
+/* =====================================================
+   RENDER ANALYSIS
+===================================================== */
+
+function renderAnalysis(text){
+
+    const keywords =
+        extractKeywords(
+            text
+        );
+
+
+    const region =
+        detectRegion(
+            text
+        );
+
+
+    const risk =
+        calculateRisk(
+            text
+        );
+
+
+    document.getElementById(
+        "translation"
+    ).innerHTML = `
+
+        <div class="text-slate-400 mb-3">
+
+            检测区域：
+
+            <span class="text-sky-400">
+                ${escapeHTML(region)}
+            </span>
+
+        </div>
+
+        <div>
+
+            根据输入原文，当前信息主要涉及
+
+            <span class="text-white">
+                ${
+                    keywords
+                        .slice(0,4)
+                        .join("、")
+                    ||
+                    "宏观经济"
+                }
+            </span>
+
+            等主题。
+
+        </div>
+
+        <div class="mt-3 text-slate-400">
+            原文摘要：
+        </div>
+
+        <div class="mt-2">
+
+            ${escapeHTML(
+                text.length > 500
+                    ? text.substring(0,500) + "……"
+                    : text
+            )}
+
+        </div>
+
+    `;
+
+
+    const keywordBox =
+        document.getElementById(
+            "keywords"
+        );
+
+
+    keywordBox.innerHTML =
+        keywords.length
+
+            ? keywords
+                .map(
+                    word => `
+
+                    <span class="px-3 py-1.5 rounded-lg bg-sky-400/10 border border-sky-400/20 text-xs text-sky-300">
+
+                        ${escapeHTML(word)}
+
+                    </span>
+
+                    `
+                )
+                .join("")
+
+            : `
+
+                <span class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-500">
+
+                    未检测到明确关键词
+
+                </span>
+
+            `;
+
+
+    const evidence =
+        text
+            .split(/[。！？.!?]/)
+            .map(
+                x=>x.trim()
+            )
+            .filter(
+                Boolean
+            )[0]
+            ||
+        text.substring(
+            0,
+            180
+        );
+
+
+    document.getElementById(
+        "evidence"
+    ).innerHTML = `
+
+        <div>
+
+            <div class="text-amber-300">
+                原文明确出现：
+            </div>
+
+            <div class="mt-2 text-slate-400">
+
+                “${escapeHTML(
+                    evidence.substring(
+                        0,
+                        180
+                    )
+                )}”
+
+            </div>
+
+            <div class="mt-3 text-[10px] text-slate-600">
+                Evidence extracted directly from user-provided text.
+            </div>
+
+        </div>
+
+    `;
+
+
+    const riskBox =
+        document.getElementById(
+            "riskBox"
+        );
+
+
+    const level =
+        document.getElementById(
+            "riskLevel"
+        );
+
+
+    const progress =
+        document.getElementById(
+            "riskProgress"
+        );
+
+
+    const confidence =
+        document.getElementById(
+            "confidence"
+        );
+
+
+    const conclusion =
+        document.getElementById(
+            "riskConclusion"
+        );
+
+
+    level.textContent =
+        risk.level;
+
+
+    progress.style.width =
+        risk.score + "%";
+
+
+    confidence.textContent =
+        Math.min(
+            96,
+            68 +
+            keywords.length * 2
+        ) + "%";
+
+
+    if(
+        risk.level === "HIGH"
+    ){
+
+        level.className =
+            "mt-1 text-2xl font-bold text-red-400";
+
+
+        riskBox.className =
+            "rounded-xl border border-red-400/20 bg-red-400/5 p-5";
+
+
+        progress.className =
+            "risk-fill bg-red-400";
+
+
+        conclusion.innerHTML = `
+
+            <strong class="text-red-300">
+                风险信号偏高。
+            </strong>
+
+            <br>
+
+            原文包含多个可能影响宏观市场定价的风险关键词。
+            但仅凭输入文本不能确认实际市场结果。
+
+        `;
+
+    }
+    else if(
+        risk.level === "MODERATE-HIGH"
+    ){
+
+        level.className =
+            "mt-1 text-2xl font-bold text-orange-400";
+
+
+        riskBox.className =
+            "rounded-xl border border-orange-400/20 bg-orange-400/5 p-5";
+
+
+        progress.className =
+            "risk-fill bg-orange-400";
+
+
+        conclusion.innerHTML = `
+
+            <strong class="text-orange-300">
+                存在较明显宏观风险信号。
+            </strong>
+
+            <br>
+
+            新闻涉及可能影响利率、通胀、债券收益率或经济增长预期的因素。
+            仍需要其他数据进行确认。
+
+        `;
+
+    }
+    else if(
+        risk.level === "MODERATE"
+    ){
+
+        level.className =
+            "mt-1 text-2xl font-bold text-yellow-400";
+
+
+        riskBox.className =
+            "rounded-xl border border-yellow-400/20 bg-yellow-400/5 p-5";
+
+
+        progress.className =
+            "risk-fill bg-yellow-400";
+
+
+        conclusion.innerHTML = `
+
+            <strong class="text-yellow-300">
+                存在中等程度宏观关注点。
+            </strong>
+
+            <br>
+
+            输入文本可能影响市场预期，
+            但目前证据不足以判断持续性或具体市场方向。
+
+        `;
+
+    }
+    else{
+
+        level.className =
+            "mt-1 text-2xl font-bold text-green-400";
+
+
+        riskBox.className =
+            "rounded-xl border border-green-400/20 bg-green-400/5 p-5";
+
+
+        progress.className =
+            "risk-fill bg-green-400";
+
+
+        conclusion.innerHTML = `
+
+            <strong class="text-green-300">
+                当前文本直接风险信号较低。
+            </strong>
+
+            <br>
+
+            仍需要结合完整原文、历史数据及市场价格进行判断。
+
+        `;
+
+    }
+
+
+    document
+        .getElementById(
+            "analysisEmpty"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    const content =
+        document.getElementById(
+            "analysisContent"
+        );
+
+
+    content.classList.remove(
+        "hidden"
+    );
+
+
+    content.classList.add(
+        "fade-in"
+    );
+
+
+    document.getElementById(
+        "analysisStatus"
+    ).textContent =
+        "COMPLETE";
+
+
+    localStorage.setItem(
+        "macro_last_news",
+        text
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(str){
+
+    return String(str)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+function clearAnalysis(){
+
+    document.getElementById(
+        "newsInput"
+    ).value =
+        "";
+
+
+    document
+        .getElementById(
+            "analysisContent"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "analysisEmpty"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+
+    document.getElementById(
+        "analysisStatus"
+    ).textContent =
+        "WAITING";
+
+
+    localStorage.removeItem(
+        "macro_last_news"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD SAVED NEWS
+===================================================== */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        const saved =
+            localStorage.getItem(
+                "macro_last_news"
+            );
+
+
+        if(saved){
+
+            document.getElementById(
+                "newsInput"
+            ).value =
+                saved;
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CTRL + ENTER
+===================================================== */
+
+document
+    .getElementById(
+        "newsInput"
+    )
+    .addEventListener(
+        "keydown",
+        event=>{
+
+            if(
+                event.ctrlKey &&
+                event.key === "Enter"
+            ){
+
+                analyzeNews();
+
+            }
+
+        }
+    );
+
+</script>
+</body>
+</html>
